@@ -3,7 +3,7 @@ from pathlib import Path
 import csv
 import yaml
 
-ROOT = Path(r"D:\CMPE401_Project1")
+ROOT = Path(__file__).resolve().parents[1]
 RUN = ROOT / "runs" / "yolo11n_baseline"
 OUT = ROOT / "results" / "baseline_summary.csv"
 
@@ -51,3 +51,4 @@ print(OUT)
 print("\nRecorded metrics:")
 for key, value in metrics.items():
     print(f"{key}: {value}")
+

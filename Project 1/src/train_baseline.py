@@ -1,10 +1,13 @@
-
-from ultralytics import YOLO
+from pathlib import Path
+import os
 import torch
+from ultralytics import YOLO
 
-DATA = r"D:\CMPE401_Project1\configs\visdrone.yaml"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DATA = PROJECT_ROOT / "configs" / "visdrone.yaml"
 
 def main():
+    os.chdir(PROJECT_ROOT)
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA GPU is not available.")
 
@@ -12,20 +15,20 @@ def main():
     print("GPU:", torch.cuda.get_device_name(0))
 
     model = YOLO("yolo11n.pt")
-
     model.train(
-        data=DATA,
+        data=str(DATA),
         epochs=50,
         imgsz=640,
         batch=8,
         device=0,
         workers=4,
-        project=r"D:\CMPE401_Project1\runs",
+        project=str(PROJECT_ROOT / "runs"),
         name="yolo11n_baseline",
         seed=42,
         plots=True,
         save=True,
         patience=15,
+        exist_ok=False,
     )
 
 if __name__ == "__main__":

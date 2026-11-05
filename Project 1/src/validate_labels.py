@@ -1,7 +1,7 @@
 
 from pathlib import Path
 
-ROOT = Path(r"D:\CMPE401_Project1\datasets\visdrone_yolo")
+ROOT = Path(__file__).resolve().parents[1] / "datasets" / "visdrone_yolo"
 
 for split in ("train", "val"):
     image_dir = ROOT / "images" / split
