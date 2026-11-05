@@ -1,0 +1,4 @@
+Experiment,Image Size,Batch Size,Precision,Recall,mAP50,mAP50-95
+Baseline,640,8,0.4384,0.3282,0.3137,0.1756
+Control,640,4,0.426,0.325,0.306,0.169
+Resolution 960,960,4,0.5258,0.402,0.4138,0.2421
