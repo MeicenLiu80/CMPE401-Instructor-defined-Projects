@@ -1,5 +1,5 @@
 
-path: D:/CMPE401_Project1/datasets/visdrone_yolo
+path: datasets/visdrone_yolo
 
 train: images/train
 val: images/val

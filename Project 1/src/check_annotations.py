@@ -2,7 +2,7 @@
 from pathlib import Path
 from collections import Counter
 
-root = Path(r"D:\CMPE401_Project1\datasets")
+root = Path(__file__).resolve().parents[1] / "datasets"
 
 for split in ["train", "val"]:
     annotation_dir = root / f"VisDrone2019-DET-{split}" / "annotations"

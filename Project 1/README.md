@@ -42,9 +42,13 @@ The conversion script writes YOLO-format images and labels under `datasets/visdr
 
 ## Environment and reproduction
 
-The recorded runs used Python 3.11.17, PyTorch 2.11.0+cu126, Ultralytics 8.4.177, and an NVIDIA GeForce RTX 3060 Laptop GPU with 6 GB VRAM. Install a PyTorch build compatible with your CUDA-capable system, then install the project dependencies used by the scripts (Ultralytics, Pillow, OpenCV, pandas, and matplotlib).
+The recorded runs used Python 3.11.17, PyTorch 2.11.0+cu126, Ultralytics 8.4.177, and an NVIDIA GeForce RTX 3060 Laptop GPU with 6 GB VRAM. Install a PyTorch build compatible with your CUDA-capable system, then install the remaining dependencies:
 
-The current configuration and scripts contain the original machine path `D:\CMPE401_Project1`. Before running on another machine, change the project root in `configs/visdrone.yaml` and the scripts under `src/` to the local project location.
+```powershell
+python -m pip install ultralytics==8.4.177 Pillow opencv-python pandas matplotlib
+```
+
+The scripts resolve the project root from their own file locations. The dataset YAML uses a project-relative path, and training scripts set the working directory to the project root before starting Ultralytics. No machine-specific path edits are needed.
 
 From the project root, the intended workflow is:
 
@@ -58,12 +62,12 @@ python src/train_experiment1.py
 
 Training scripts require a working CUDA GPU. Ultralytics saves `results.csv`, plots, validation visualizations, and checkpoints in `runs/`.
 
-**Run-name note:** the saved 960-pixel results are in `runs/yolo11n_exp1_960/`, while `src/train_experiment1.py` currently names a new run `yolo11n_exp1_img960`. Verify the output folder and settings when reproducing or comparing results. The saved control results used for the comparison are in `runs/yolo11n_control_640_b4_nb/`; the current control script uses the name `yolo11n_control_640_b4`.
+The training entry points now use the recorded run names and settings. When a run directory already exists, Ultralytics creates a numbered directory for the new run rather than overwriting the saved results.
 
 ## Repository contents
 
 - `configs/visdrone.yaml` — dataset configuration.
-- `docs/project1_analysis.ipynb` — reviewed notebook source and analysis. The repository copy has cell outputs cleared; generated plots and epoch CSVs are stored separately.
+- `docs/project1_analysis.ipynb` — reviewed notebook with training and experiment analysis.
 - `.gitignore` — excludes local datasets, model weights, and batch-preview images.
 - `src/convert_visdrone.py` — VisDrone-to-YOLO label conversion.
 - `src/validate_labels.py` — label and image consistency checks.
@@ -77,7 +81,7 @@ Training scripts require a working CUDA GPU. Ultralytics saves `results.csv`, pl
 - Only one seed/run is available per configuration, so uncertainty is not quantified.
 - Bicycle and other difficult categories remain less accurate than car detection; object scale, occlusion, class frequency, and model capacity are possible contributors, but this study does not isolate them.
 - The loss curves do not show clear severe overfitting. They also do not establish a definitive global underfitting diagnosis.
-- The training scripts and dataset configuration use a machine-specific path and should be made portable before claiming one-command reproducibility.
+- Each configuration has one recorded run, so run-to-run variability has not been measured. Re-running the scripts creates new numbered output folders and does not overwrite the recorded results.
 - YOLO-version comparison and VisDrone challenge-test evaluation were not part of the required experiments completed here.
 
 ## Key artifacts

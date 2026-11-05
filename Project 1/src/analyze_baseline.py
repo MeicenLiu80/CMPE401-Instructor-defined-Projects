@@ -2,7 +2,7 @@
 from pathlib import Path
 import pandas as pd
 
-ROOT = Path(r"D:\CMPE401_Project1")
+ROOT = Path(__file__).resolve().parents[1]
 csv_path = ROOT / "runs" / "yolo11n_baseline" / "results.csv"
 
 df = pd.read_csv(csv_path)

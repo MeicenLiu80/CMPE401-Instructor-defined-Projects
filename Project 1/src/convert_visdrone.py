@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 from PIL import Image
 
-ROOT = Path(r"D:\CMPE401_Project1")
+ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "datasets"
 OUTPUT = SOURCE / "visdrone_yolo"
 
