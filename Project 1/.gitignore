@@ -1,0 +1,12 @@
+# Local datasets and pretrained/trained weights are large machine-specific artifacts.
+datasets/
+*.pt
+
+# Notebook and Python-generated local files.
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+
+# Training visualizations of individual batches are reproducible and numerous.
+runs/*/train_batch*.jpg
+runs/*/val_batch*.jpg
